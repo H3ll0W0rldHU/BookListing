@@ -169,22 +169,24 @@ public final class QueryUtils {
                 JSONObject volumeInfo = currentBook.getJSONObject("volumeInfo");
 
                 // Getting JSON Array "authors"
-                JSONArray authorsArray = volumeInfo.getJSONArray("authors");
 
                 String authors = "";
 
-                // Concatenate the name of all authors into one string
-                for (int j = 0; j < authorsArray.length(); j++) {
-                    String currentAuthor = authorsArray.getString(j);
-                    if (authors == "") {
-                        authors = currentAuthor;
-                    } else {
-                        authors = authors + ", " + currentAuthor;
-                    }
-                }
-
                 // If there are no authors, display "No authors" string
-                if (authors == "") {
+                if (volumeInfo.has("authors")) {
+                    JSONArray authorsArray = volumeInfo.getJSONArray("authors");
+
+                    // Concatenate the name of all authors into one string
+                    for (int j = 0; j < authorsArray.length(); j++) {
+                        String currentAuthor = authorsArray.getString(j);
+                        if (authors == "") {
+                            authors = currentAuthor;
+                        } else {
+                            authors = authors + ", " + currentAuthor;
+                        }
+                    }
+
+                } else {
                     authors = "No authors";
                 }
 
